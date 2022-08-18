@@ -28,7 +28,7 @@ public class updateCustomerCommand extends Command {
 
         Customer temp = customer[0];
         System.out.println("Name");
-        temp.setName(scan.nextLine());
+        temp.setCustomerName(scan.nextLine());
         System.out.println("lastName");
         temp.setLastName(scan.nextLine());
         System.out.println("Address");

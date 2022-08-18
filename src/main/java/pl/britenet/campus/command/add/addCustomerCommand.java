@@ -23,9 +23,11 @@ public class addCustomerCommand extends Command {
     @Override
     public void execute() throws ParseException {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Email: ");
+        this.customer.setEmail(scanner.next());
 
-        System.out.println("Enter Name: ");
-        this.customer.setName(scanner.next());
+        System.out.println("Enter CustomerName: ");
+        this.customer.setCustomerName(scanner.next());
 
         System.out.println("Enter LastName: ");
         this.customer.setLastName(scanner.next());
@@ -36,12 +38,15 @@ public class addCustomerCommand extends Command {
         System.out.println("Enter PhoneNr: ");
         this.customer.setPhoneNr(scanner.nextInt());
 
+        System.out.println("Enter password: ");
+        this.customer.setPassword(scanner.next());
+
         this.customerService.addCustomer(this.customer);
 
 
-        System.out.println(" Name: " + this.customer.getName() + " LastName: " +
+        System.out.println("Email: " + this.customer.getEmail()  +  " CustomerName: " + this.customer.getCustomerName() + " LastName: " +
                 this.customer.getLastName() + "Address: " + this.customer.getAddress() + "PhoneNr: " +
-                this.customer.getPhoneNr());
+                this.customer.getPhoneNr() + this.customer.getPassword() + "password");
 
     }
 }

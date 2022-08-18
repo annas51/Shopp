@@ -1,11 +1,10 @@
 package pl.britenet.campus.object;
 
 public class OrderProduct {
-    private final int OrderProductId;
+    private int OrderProductId;
     private int Price;
     private int Quantity;
     private int ProductId;
-
 
     public String toString(){
         return this.OrderProductId + " " + this.Price + " " + this.Quantity + " " + this.ProductId;

@@ -23,7 +23,8 @@ public class CustomerService {
             try {
                 while (resultSet.next()) {
                     Customer customer = new Customer(resultSet.getInt("CustomerId"));
-                    customer.setName(resultSet.getString("CustomerName"));
+                    customer.setEmail(resultSet.getString("Email"));
+                    customer.setCustomerName(resultSet.getString("CustomerName"));
                     customer.setLastName(resultSet.getString("LastName"));
                     customer.setAddress(resultSet.getString("Address"));
                     customer.setPhoneNr(resultSet.getInt("PhoneNr"));
@@ -43,7 +44,8 @@ public class CustomerService {
             try {
                 if (resultSet.next()) {
                     Customer customer = new Customer(resultSet.getInt("CustomerId"));
-                    customer.setName(resultSet.getString("CustomerName"));
+                    customer.setEmail(resultSet.getString("Email"));
+                    customer.setCustomerName(resultSet.getString("CustomerName"));
                     customer.setLastName(resultSet.getString("LastName"));
                     customer.setAddress(resultSet.getString("Address"));
                     customer.setPhoneNr(resultSet.getInt("PhoneNr"));
@@ -60,8 +62,8 @@ public class CustomerService {
     }
     public void  addCustomer (Customer customer)
     {
-        this.databaseService.performDML(String.format("INSERT INTO Customer (CustomerName, LastName, Address, PhoneNr) VALUES('%s', '%s', '%s', %d)",
-             customer.getName(), customer.getLastName(), customer.getAddress(), customer.getPhoneNr()));
+        this.databaseService.performDML(String.format("INSERT INTO Customer (Email, CustomerName, LastName, Address, PhoneNr, password) VALUES('%s', '%s', '%s', '%s', %d, '%s')",
+           customer.getEmail(),  customer.getCustomerName(), customer.getLastName(), customer.getAddress(), customer.getPhoneNr(), customer.getPassword()));
     }
     public void deleteCustomer(int id)
     {
@@ -70,26 +72,27 @@ public class CustomerService {
         this.databaseService.performDML("SET foreign_key_checks = 1");
     }
     public void updateCustomer(Customer customer) {
-        this.databaseService.performDML(String.format("UPDATE customer SET CustomerName = '%s'" +
+        this.databaseService.performDML(String.format("UPDATE Customer SET Email = '%s', CustomerName = '%s'" +
                         ", LastName='%s' , Address='%s', PhoneNr=%d WHERE CustomerId=%d",
-                customer.getName(), customer.getLastName(), customer.getAddress(), customer.getPhoneNr(), customer.getCustomerId()));
+               customer.getEmail(), customer.getCustomerName(), customer.getLastName(), customer.getAddress(), customer.getPhoneNr(), customer.getCustomerId()));
     }
 
 
-    public Optional<Customer> getCustomerPass( String customername, String password) {
-        Customer getCustomerPass = this.databaseService.performSQL(String.format("SELECT * FROM Customer WHERE CustomerName = '%s' AND password = '%s' ",customername, password), resultSet -> {
+    public Optional<Customer> getCustomerPass(String email, String password) {
+        Customer getCustomerPass = this.databaseService.performSQL(String.format("SELECT * FROM Customer WHERE Email = '%s' AND password = '%s' ",email, password), resultSet -> {
             try {
                 if (resultSet.next()) {
                     Customer customer = new Customer(resultSet.getInt("CustomerId"));
-                    customer.setName(resultSet.getString("CustomerName"));
+                    customer.setEmail(resultSet.getString("Email"));
+                    customer.setCustomerName(resultSet.getString("CustomerName"));
                     customer.setLastName(resultSet.getString("LastName"));
                     customer.setAddress(resultSet.getString("Address"));
                     customer.setPhoneNr(resultSet.getInt("PhoneNr"));
-                    customer.setPassword(resultSet.getString("Password"));
+                    customer.setPassword(resultSet.getString("password"));
 
 
 
-                    return CustomerPass;
+                    return customer;
                 }
             } catch (SQLException exception) {
                 throw new IllegalStateException(exception);

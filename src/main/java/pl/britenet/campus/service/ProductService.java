@@ -1,6 +1,7 @@
 package pl.britenet.campus.service;
 
 import pl.britenet.campus.database.DatabaseService;
+import pl.britenet.campus.object.Images;
 import pl.britenet.campus.object.Product;
 
 import java.sql.SQLException;
@@ -16,17 +17,22 @@ public class ProductService {
         this.databaseService = databaseService;
     }
 
-    public List<Product> getProduct() {
-        return this.databaseService.performSQL("SELECT * FROM Product", resultSet -> {
+    public List<Product> getProducts() {
+        return this.databaseService.performSQL("SELECT * FROM product AS p LEFT JOIN image AS i on p.ImageId=i.ImageId", resultSet -> {
             List<Product> productList = new ArrayList<>();
             try {
                 while (resultSet.next()) {
-                    Product product = new Product(resultSet.getInt("ProductId"), 1, "test", "test");
-                    product.setOrderProductId(resultSet.getInt("OrderProductId"));
-                    product.setName(resultSet.getString("Name"));
-                    product.setDescription(resultSet.getString("Description"));
-                    product.setPrice(resultSet.getDouble("Price"));
-                    product.setQuantity(resultSet.getInt("Quantity"));
+                    Product product = new Product(resultSet.getInt("p.ProductId"));
+                    product.setOrderProductId(resultSet.getInt("p.OrderProductId"));
+                    product.setName(resultSet.getString("p.Name"));
+                    product.setDescription(resultSet.getString("p.Description"));
+                    product.setPrice(resultSet.getDouble("p.Price"));
+                    product.setQuantity(resultSet.getInt("p.Quantity"));
+
+                    Images image = new Images(resultSet.getInt("i.ImageId"));
+                    image.setPicture(resultSet.getString("i.picture"));
+                    product.setImageId(resultSet.getInt("p.ImageId"));
+                    product.setImages(image);
 
                     productList.add(product);
                 }
@@ -38,15 +44,23 @@ public class ProductService {
     }
 
     public Optional<Product> getProduct(int id) {
-        Product getProduct = this.databaseService.performSQL(String.format("SELECT * FROM Product WHERE ProductId = %d", id), resultSet -> {
+        Product getProduct = this.databaseService.performSQL(String.format("SELECT * FROM product AS p LEFT JOIN image AS i on p.ImageId=i.ImageId WHERE ProductId = %d", id), resultSet -> {
             try {
                 if (resultSet.next()) {
-                    Product product = new Product(resultSet.getInt("ProductId"), 1, "test", "test");
+                    Product product = new Product(resultSet.getInt("ProductId"));
                     product.setOrderProductId(resultSet.getInt("OrderProductId"));
                     product.setName(resultSet.getString("Name"));
                     product.setDescription(resultSet.getString("Description"));
                     product.setPrice(resultSet.getDouble("Price"));
                     product.setQuantity(resultSet.getInt("Quantity"));
+                    product.setCartProductId(resultSet.getInt("cartProductId"));
+                    product.setImageId(resultSet.getInt("ImageId"));
+
+                    Images image = new Images(resultSet.getInt("i.ImageId"));
+                    image.setPicture(resultSet.getString("i.picture"));
+                    product.setImageId(resultSet.getInt("p.ImageId"));
+                    product.setImages(image);
+
                     return product;
                 }
             } catch (SQLException exception) {

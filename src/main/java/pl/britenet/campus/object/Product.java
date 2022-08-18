@@ -12,6 +12,24 @@ public class Product {
     private double Price;
     private int Quantity;
     private int CartProductId;
+    private int imageId;
+    private Images images;
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
+    public Images getImages() {
+        return images;
+    }
+
+    public void setImages(Images images) {
+        this.images = images;
+    }
 
     public Product(int productId) {
         ProductId = productId;
@@ -76,4 +94,6 @@ public class Product {
     public void setCartProductId(int cartProductId) {
         CartProductId = cartProductId;
     }
+
+
 }

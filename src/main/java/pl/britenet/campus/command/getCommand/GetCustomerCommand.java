@@ -23,7 +23,9 @@ public class GetCustomerCommand extends Command {
         Optional<Customer> customer = this.customerService.getCustomer(Integer.parseInt(CustomerId));
         customer.ifPresent(value ->
                 System.out.println("CustomerId: " + String.valueOf(value.getCustomerId()) + ", " +
-                                            "Name: " + String.valueOf(value.getName()) + ", " +
+                                         "Email: " + String.valueOf(value.getEmail()) + ", " +
+
+                            "Name: " + String.valueOf(value.getCustomerName()) + ", " +
                                         "LastName: " +String.valueOf( value.getLastName()) + ", " +
                                         "Address: " + String.valueOf(value.getAddress()) + ", "+
                                         "PhoneNr: " + String.valueOf(value.getPhoneNr()) + ", " +

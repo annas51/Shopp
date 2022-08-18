@@ -28,7 +28,7 @@ import java.util.Scanner;
                                 String.valueOf("CreatedAt: " + value.getCreatedAt()) + ", " +
                                 String.valueOf("ProductId: " + value.getProductId()) + ", " +
                                 String.valueOf("OrderProductId: " + value.getOrderProductId()) + ", " +
-                                String.valueOf("CustomerId(: " + value.getCustomerId())));
+                                String.valueOf("CustomerId: " + value.getCustomerId())));
 
             }
         }

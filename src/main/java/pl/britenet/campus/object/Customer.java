@@ -5,6 +5,8 @@ import pl.britenet.campus.Constants;
 public class Customer {
     private int CustomerId;
     private String CustomerName;
+
+    private String Email;
     private String LastName;
     private String Address;
     private int PhoneNr;
@@ -13,8 +15,8 @@ public class Customer {
     private int OrderId;
 
     public String toString(){
-        return this.CustomerId + " " + this.CustomerName + " " + this.LastName + " " + this.Address
-                + " " + this.PhoneNr + " " + this.CartId + "" + this.OrderId + "" + this.password;
+        return this.CustomerId + " " + this.Email + "" + this.CustomerName + " " + this.LastName + " " + this.Address
+                + " " + this.PhoneNr + " " + this.CartId + " " + this.OrderId + " " + this.password + " ";
     }
 
     public Customer(String password) {
@@ -29,11 +31,16 @@ public class Customer {
         this.password = password;
     }
 
-    public void getCustomername(String customername) {this.CustomerName = String.valueOf(customername);
+    public void getEmail(String email) {this.Email = email; }
+
+
+    public String getEmail() {
+        return Email;
     }
 
-    ;
-
+    public void setEmail(String email) {
+        this.Email = email;
+    }
 
     public Customer(int customerId) {
         this.CustomerId = customerId;
@@ -46,11 +53,11 @@ public class Customer {
         return CustomerId;
     }
 
-    public String getName() {
+    public String getCustomerName() {
         return CustomerName;
     }
 
-    public void setName(String customerName) {
+    public void setCustomerName(String customerName) {
         CustomerName = customerName;
     }
 
@@ -94,8 +101,9 @@ public class Customer {
         OrderId = orderId;
     }
 
-    public Customer(int customerId, String customerName, String lastName, String address, int phoneNr, int cartId, int orderId) {
+    public Customer(int customerId, String email, String customerName, String lastName, String address, int phoneNr, int cartId, int orderId) {
         CustomerId = customerId;
+        Email = email;
         CustomerName = customerName;
         LastName = lastName;
         Address = address;
@@ -103,4 +111,6 @@ public class Customer {
         CartId = cartId;
         OrderId = orderId;
     }
+
+
 }

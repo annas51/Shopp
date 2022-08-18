@@ -19,7 +19,7 @@ public class UserServiceTest {
     }
     @Test
     public void getProductTest() {
-        Customer customer = new Customer( 1,"Jan","Kowalski","halinka",456789321,5,5);
+        Customer customer = new Customer( 1, "gregrtg", "Jan","Kowalski","halinka",456789321,5, 5);
         customerService.addCustomer(customer);
         List<Customer> newlist  = customerService.getCustomer();
         assert this.customerService.getCustomer(newlist.get(newlist.size()-1).getCustomerId()).isPresent();

@@ -21,13 +21,13 @@ import java.util.List;
                 }
 
                 public void execute() {
-                    List<Product> productList = this.productService.getProduct();
+                    List<Product> productList = this.productService.getProducts();
                   /*  productList.forEach( product -> {
                         System.out.println(product.getName());
                     }
                     );*/
-                    String labels = "POGCHAMPOWE NAZWY PUL";
-                    Paginator<Product> jd = new Paginator<>(productList, 5, labels);
-                    jd.Paginate();
+                    String labels = "Products";
+                    Paginator<Product> productPaginator = new Paginator<>(productList, 5, labels);
+                    productPaginator.Paginate();
                  }
         }

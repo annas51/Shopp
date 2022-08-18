@@ -57,5 +57,10 @@ public class CartProductService {
         this.databaseService.performDML(String.format("DELETE FROM CartProduct WHERE CartProductId = %d", id));
         this.databaseService.performDML("SET foreign_key_checks = 1");
     }
+    public void  addCartProduct (CartProduct cartProduct)
+    {
+        this.databaseService.performDML(String.format("INSERT INTO cartProduct (CartId, ProductId, Quantity) VALUES(%d, %d, %d)", cartProduct.getCartId(),
+                cartProduct.getProductId(), cartProduct.getQuantity()));    }
 }
+
 
